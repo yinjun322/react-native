@@ -176,6 +176,14 @@ static NSURLCredential* clientAuthenticationCredential;
   if ([request.URL isEqual:_webView.URL]) {
     return;
   }
+  if(_source[@"uri"] && [_source[@"uri"] hasPrefix:@"file://"]){
+    [_webView.configuration.preferences setValue:@"TRUE" forKey:@"allowFileAccessFromFileURLs"];
+    [_webView.configuration setValue:@"TRUE" forKey:@"allowUniversalAccessFromFileURLs"];
+    NSURL *accessURL = [[NSURL URLWithString:_source[@"uri"]] URLByDeletingLastPathComponent];
+    [_webView loadFileURL:[NSURL URLWithString:_source[@"uri"]] allowingReadAccessToURL:accessURL];
+    return;
+  }
+  
   if (!request.URL) {
     // Clear the webview
     [_webView loadHTMLString:@"" baseURL:nil];

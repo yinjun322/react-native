@@ -642,6 +642,18 @@ public class ReactWebViewManager extends SimpleViewManager<WebView> {
     }
   }
 
+  @ReactProp(name = "allowFileAccessFromFileURLs")
+  public void setAllowFileAccessFromFileURLs(WebView view, @Nullable Boolean allowFileAccessFromFileURLs) {
+    view.getSettings().setAllowFileAccessFromFileURLs(allowFileAccessFromFileURLs != null && allowFileAccessFromFileURLs);
+  }
+
+  @ReactProp(name = "allowUniversalAccessFromFileURLs")
+  public void setAllowUniversalAccessFromFileURLs(WebView view, @Nullable Boolean allowUniversalAccessFromFileURLs) {
+    view.getSettings().setAllowUniversalAccessFromFileURLs(allowUniversalAccessFromFileURLs != null && allowUniversalAccessFromFileURLs);
+  }
+
+
+
   @Override
   protected void addEventEmitters(ThemedReactContext reactContext, WebView view) {
     // Do not register default touch emitter and let WebView implementation handle touches
